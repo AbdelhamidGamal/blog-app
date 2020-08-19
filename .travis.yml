@@ -5,7 +5,7 @@ os: linux
 dist: trusty
 services:
   - mongodb
-  - redis-sever
+  - redis-server
 env:
   - NODE_ENV=ci PORT=3000
 cache:
