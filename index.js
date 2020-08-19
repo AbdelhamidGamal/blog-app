@@ -19,7 +19,7 @@ app.use(bodyParser.json());
 app.use(
   cookieSession({
     maxAge: 30 * 24 * 60 * 60 * 1000,
-    keys: [keys.cookieKey],
+    keys: [keys.cookieKey]
   })
 );
 app.use(passport.initialize());
@@ -28,7 +28,7 @@ app.use(passport.session());
 require("./routes/authRoutes")(app);
 require("./routes/blogRoutes")(app);
 
-if (["production"].includes(process.env.NODE_ENV)) {
+if (["production", "ci"].includes(process.env.NODE_ENV)) {
   app.use(express.static("client/build"));
 
   const path = require("path");
