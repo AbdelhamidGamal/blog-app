@@ -1,0 +1,25 @@
+language: node_js
+node_js:
+  - 8
+os: linux
+dist: trusty
+services:
+  - mongodb
+  - redis-sever
+env:
+  - NODE_ENV=ci
+  - PORT=3000
+cache:
+  directories:
+    - node_modules
+    - client/node_modules
+install:
+  - npm install
+  - npm run build
+script:
+  - nohup npm run start &
+  - sleep 5
+  - npm run test
+before_script:
+  - sleep 15
+  - mongo blogs --eval 'db.createUser({user:"travis",pwd:"test",roles:["readWrite"]});'
